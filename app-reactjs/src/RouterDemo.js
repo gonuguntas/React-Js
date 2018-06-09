@@ -8,6 +8,11 @@ import Propsvalidation from './propsvalidation';
 import Reference from './Ref';
 import Key from './key';
 import Lifecycle from './lifecycle-component';
+import Crud from './crud';
+import Signup from './Registration/signup';
+import Signin from './Registration/signin';
+import Purecomp from './purecomponent';
+import Routing from './Routing/router';
 
 
 export default class RouterDemo extends Component {
@@ -24,7 +29,11 @@ export default class RouterDemo extends Component {
                     <li><Link to="/Reference">Ref in React</Link></li>
                     <li><Link to="/Key">Key in React</Link></li>
                     <li><Link to="/Lifecycle">Component Lifecycle</Link></li>
-
+                    <li><Link to="/crud">Crud Operation</Link></li>
+                    <li><Link to="/signup">SignUp</Link></li>
+                    <li><Link to="/signin">SignIn</Link></li>
+                    <li><Link to="/purecomp">Pure Component</Link></li>
+                    <li><Link to="/routing">Routing</Link></li>
 
             </ul>
             <hr />
@@ -36,6 +45,11 @@ export default class RouterDemo extends Component {
                 <Route exact path="/Reference" component={ Reference } />
                 <Route exact path="/Key" component={ Key } />
                 <Route exact path="/Lifecycle" component={ Lifecycle } />
+                <Route exact path="/crud" component={ Crud } />
+                <Route exact path="/signup" component={ Signup } />
+                <Route exact path="/signin" component={ Signin } />
+                <Route exact path="/purecomp" component={ Purecomp } />
+                <Route exact path="/routing" component={ Routing } />
 
             </div>
             </Router>
