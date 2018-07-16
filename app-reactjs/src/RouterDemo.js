@@ -13,7 +13,7 @@ import Signup from './Registration/signup';
 import Signin from './Registration/signin';
 import Purecomp from './purecomponent';
 import Routing from './Routing/router';
-
+import Sendtoparent from './sendtoparent';
 
 export default class RouterDemo extends Component {
     render(){
@@ -34,6 +34,7 @@ export default class RouterDemo extends Component {
                     <li><Link to="/signin">SignIn</Link></li>
                     <li><Link to="/purecomp">Pure Component</Link></li>
                     <li><Link to="/routing">Routing</Link></li>
+                    <li><Link to="/sendtoparent">Send To Parent</Link></li>
 
             </ul>
             <hr />
@@ -50,6 +51,7 @@ export default class RouterDemo extends Component {
                 <Route exact path="/signin" component={ Signin } />
                 <Route exact path="/purecomp" component={ Purecomp } />
                 <Route exact path="/routing" component={ Routing } />
+                <Route exact path="/sendtoparent" component={ Sendtoparent } />
 
             </div>
             </Router>
