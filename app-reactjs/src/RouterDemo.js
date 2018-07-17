@@ -14,6 +14,8 @@ import Signin from './Registration/signin';
 import Purecomp from './purecomponent';
 import Routing from './Routing/router';
 import Sendtoparent from './sendtoparent';
+import Validation from './validation';
+
 
 export default class RouterDemo extends Component {
     render(){
@@ -35,6 +37,7 @@ export default class RouterDemo extends Component {
                     <li><Link to="/purecomp">Pure Component</Link></li>
                     <li><Link to="/routing">Routing</Link></li>
                     <li><Link to="/sendtoparent">Send To Parent</Link></li>
+                    <li><Link to="/validation">Validation</Link></li>
 
             </ul>
             <hr />
@@ -52,6 +55,7 @@ export default class RouterDemo extends Component {
                 <Route exact path="/purecomp" component={ Purecomp } />
                 <Route exact path="/routing" component={ Routing } />
                 <Route exact path="/sendtoparent" component={ Sendtoparent } />
+                <Route exact path="/validation" component={ Validation } />
 
             </div>
             </Router>
