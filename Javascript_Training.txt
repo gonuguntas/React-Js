@@ -1,0 +1,504 @@
+Javascript
+
+
+1> a brief history of web development
+	-> internet has existed for 3 decades
+	-> in the initial days,
+		- our front end (client side) was built using html and css
+		- these are called as static webpages
+		- if we wanted to do any programming, form validation or calculations
+		- we had rely on the back end
+		- the back end was built on java
+		- for any operation, a request had to be sent to the server, the server 		would respond and do the operation and would return the result as a 		response
+	
+	-> drawbacks
+		- the website would be very slow
+		- lots of load on the server
+		- less interactive website
+
+
+2> what is javascript
+	-> it was created in 1995 and was created as livescript
+	-> it runs on the browser
+	-> it started out as a scripting language
+		- a scripting language has control over the env in which it runs
+		- javascript runs on the browser
+		- it has control over html, css and the browser
+	-> now javascript has almost all programming features
+	-> javascript is an interpreted language
+		- there is intermediate code
+		- the browser directly interprets each line of code in the script and 				executes them
+	-> each web browser has its own javascript engine
+		- chrome - V8 engine
+		- mozilla - spidermonkey
+		- IE - chakra
+
+
+3> importance of javascript
+	-> it runs on web browser
+		- it doesn't rely on the serve to do programming
+		- now, any basic operations, can be done on the browser itself
+		- the website can be much faster
+		- less load on the server
+	-> It helped the developers make more interactive websites
+		- more programming features avaiable
+		- it had control on html and css
+
+
+4> hello world example
+	- create a simple html page
+	- add <script></script>
+	- document.write() - it is used to print onto the html
+
+- ; are not 100% necessary
+- it is used to maintain a clear code
+
+
+5> three ways of writing javascript code
+	-> internal
+		- the code is written directly in the html file
+		- the code is wrapped in <script></script>
+		- it can written in the <head></head> and <body></body>
+
+	-> external
+		- the code is written in a seperate file and is imported into the html
+		- this seperate file should have an extention '.js'
+		- to import - <script src="/path"></script>
+		- it can be written in <head></head> and <body></body>
+
+	-> inline
+		(we will dicuss later)
+
+
+6> internal vs external
+	-> internal - the code is executed faster
+		external - the code needs to be downloaded and executed
+	-> internal - large amount of code is difficult to maintain
+		external - the code can be easily differentiated and maintained
+	-> internal - the code is limited to one html file
+		external - the code can be imported into any number of html files
+	-> internal - where there are less lines of code
+		external - where the code has to be reused multiple places
+
+
+
+-- for this, we will use a temperature conversion app
+-- it will convert the temp from celsius to fahrenheit and vice versa
+
+
+7> identifiers
+	-> names given to the models of real world properties
+	-> 'temp' is an identifier that can be used to represent temperature
+
+	-> there are certain rules when it comes to naming identifiers
+		- the identifier can have only alphabets, numbers, underscore(_) and 				dollar sign ($)
+		- an identifier can start with alphabets/ underscore(_)/ dollar sign($)
+		- an identifier is case sensitive
+
+
+8> value/literal
+	-> the data that is represented by the identifier
+
+
+
+9> variable and constant
+	-> they are types of identifiers
+	-> variable (var)
+		- this identifier, the data present within it is mutable/ can be changed
+	-> constant (const)
+		- this identifier, the data present within it cannot be changed
+	-> if you do not mention either of them, the program will assume the identifier 	to be variable by default
+
+
+-- for debugging purposes, every browser gives you access to the console
+-- to open console, search for development tools in menu
+-- or hit function f12
+-- to print anything to the console, use the syntax
+	console.log(data);
+
+
+10> datatype
+	-> javascript is a loosely typed language
+	-> it interprets the datatype of a value on runtime
+
+- the datatypes can broadly classified into two types
+	- primitive - these datatypes generally hold a single value
+		- eg: int and string
+	- non-primitive - these datatypes can hold multiple primitive data types
+		- eg: array and objects
+
+	- 5 primitive datatypes
+	-> number - used to store a nurmerical value
+		- int - can store integers upto 2^32
+		- long - can store integers upto 2^64
+		- float - can store decimal values 32 bit
+		- double - can store decimal values 64 bit
+
+		- NaN - not a number
+			eg: 0/0 or "sdfgdfg"*56
+		- infinity - used to store any infinite value
+			eg: 45/0
+
+	-> string - used to store characters, words, sentences etc
+		- in javascript, there is no seperate character datatype
+		- which means '' or "" to store string
+		- when creating sentences, use the quotes appropriately
+			eg: var sent1 = "and she said, 'this is javascript'"
+		- you can access individual characters using their index
+			eg: var uname = "rishin";
+				uname[0] => r
+
+
+	-> boolean - used to store true or false
+
+
+	-> undefined - there is not datatype
+		- when you declare a variable without assigning
+		- it will have undefined datatype and data
+
+	-> objects - non primitive data type that store data in key value pair
+		- eg: car = {
+			company: 'tesla',
+			engineNo: 2345345
+			}
+		- cannot print object onto html pages
+
+	-> null - this represents an empty object
+
+
+11> operators
+	- arithmetic
+		- +, -, *, /, %
+		- increment (++) is a replacment for (number + 1)
+		- decrement (--) is a replacement for (number - 1)
+		- + can to used to concat strings, also string and number
+
+	- assigment
+		- =, +=, -=, *=, /=
+		- += is equivalent to (num = num + num2)
+
+	- relational
+		- <, >, <=, >=, ==, !=
+		- === strict equality
+			- == will compare only value
+			- === will compare value and datatype
+		- !== strict non equality
+			- similar to strict equality
+
+	- logical
+		- !, &&, ||
+
+	- typeOf
+		- since javascript is loosely typed, it can helpful to keep a track of a 		variable's datatype
+		- typeOf can be used to determine a variable's datatype
+
+
+13> statements
+	-> they are instructions for the program to follow
+		eg: var username;
+		- this is a declaration statement
+	-> expressions
+		- they combine operators and variables to perform a function
+	-> comments
+		- they are statements that are ignored by the program
+		
+		- single line comment
+			eg: // This is a single line comment
+		- multi line comment
+			eg: /*
+				this is a multi line comment
+				*/
+		- they can help the developers give explaination or clarity to the code 			they write
+	
+
+14> looping/iteration
+	-> these are statements that can be used to iterate or repeat functions for n 	number of times
+	
+	-> for loop
+	syntax: for(variable declartion, variable comparsion, variable increment) {
+			function();
+		}
+	eg: for(var i = 0; i<5; i++){
+			count++;
+		}
+		- use var keyword, due to scoping
+		- for is best used when you have fixed number of iterations
+
+	-> while loop
+	syntax: while(condition) {
+			function();
+		}
+	eg: while(j<10) {
+			j++;
+		}
+		- while is best used when you do not have a definitive no of iterations
+		- as long as the condition is true, it will be iterating
+
+	-> do while loop
+	syntax: do {
+			function();
+		} while(condition);
+
+		- it is used when the loop must have an exit condition
+
+
+15> break and continue
+	-> break
+		- it is a statement to stop the iteration
+	-> continue
+		- it is a statement to skip one iteration
+
+
+16> conditional
+	-> it is used to choose between two actions
+
+	-> if statement
+		-> is used to decide whether to execute the statement or not
+		syntax: if(condition){
+				function();
+			}
+	
+	-> else statement
+		-> it is simple any alternative to the if statement
+		-> it has to be preceeded by an if statement
+		-> else do not have their own condition
+		syntax: if(condition) {
+				function1();
+			}
+			else {
+				function2();
+			}
+
+	-> if else if ladder
+		-> we can have multiple options with their own conditions
+		-> else is optional, but if statement is necessary
+		syntax: if(condition1) {
+				function1();
+			} else if(condition2) {
+				function2();
+			} else if(condition3) {
+				function3();
+			} else {
+				function4();
+			}
+
+	-> switch statement
+		-> is a cleaner version of if else ladder
+		-> generally it simple does a comparsion
+		-> after every case, use break. otherwise succeeding of cases will also 		get executed
+		-> default case, is a replacement for else
+		syntax: switch(expression) {
+				case value1: function1();
+					break;
+
+				case value2: function2();
+					break;
+
+				case value3: function3();
+					break;
+
+				default: function4()
+			}
+
+	-> ternary operator
+		- it is single expression replacement for if else statement
+		syntax: (condition)? (if true): (if false)
+
+
+17> Modes of execution
+	-> two ways in which you javascript code gets executed
+	-> immediate mode of execution
+		- the code you write, will get executed as soon at the file is loaded
+
+	-> deferred mode of execution
+		- on request the code gets executed
+		- we use functions to accomplish this
+
+18> types of function
+	-> function is a block of statements that accomplishes a task
+	-> once you create a function, you can reuse n number of times
+	-> user defined functions
+		- the developer creates the function to serve his own tasks
+	-> built-in functions
+		- functions that the javascript program provides to us
+
+19> user defined functions
+	-> functions that are created by the user
+	-> function declaration - you are creating function for the first time
+		syntax: function funcName(args) {
+				//code
+			}
+
+	-> function invocation - you calling the function for execution
+		syntax: funcName(parameters);
+
+	-> a function can return a result. 
+		- within the function, use the keyword return, followed by whatever you 			want to return
+		- a function that does not return a value is called as void function
+		syntax: function funcName(args) {
+				//code
+				return args+1;
+			}
+
+	-> nested functions - functions within functions
+		- a function that is declared within another function is called as 				nested function
+
+
+20> built-in functions
+
+
+21> scope
+	-> scope is defined as the avaliability of the variable or function within the 	program
+	-> three types of scope
+		- global - the variable is avaiable through out the entire program
+		- local - the variable is avaiable only in the block of code
+		- nested - the variable is avaiable only in the nested function or block
+	-> without var keyword, the variable become a global variable
+	-> var keyword is used to localize a variable
+
+22> hoisting
+	-> the program runs through your code and declares all of the global (script 	level) variables and functions right at the start of the script
+	-> limited to variables declared with var keyword
+	-> a similar pattern is followed in functions
+	-> once its invoked, all the variables and functions within it get hoisted at 	the start of the parent function
+
+
+23> events and event handling
+	-> event is nothing user action
+	-> so in a website, user will be able to interact with the features
+	-> so the user input/ user action is defined as event
+
+	-> to handle these event, html has a few event handlers
+	-> based on type of action, we have several event handlers
+		- onclick - used to handle click functions
+		- onchange - used to handle input changes
+
+	-> syntax: <button eventHandler="function()">this is a button</button>
+
+-- you can use event handlers to write inline js
+-- however, this code will be limited to the event handler, so it is adviced to avoid this
+
+
+24> objects
+	-> the basic idea of an object is to map a real world entity to our program
+	-> an object consists of state/data and behaviour/methods
+
+	-> eg: car
+	-> state of a car consists of company name, model number, engine number
+	-> behaviour of a car consists of acceleration, gear change
+	-> the state is represented by variables
+	-> the beahaviour is represented by functions
+
+	-> the data/behaviour is stored within an object as key value pairs
+
+	-> there are two types of objects
+		- built in objects
+		- user defined objects
+
+
+25> User defined objects
+	-> there are two ways of creating objects
+	-> object literal notion
+		- create key value pairs by seperating them using ':' and ','
+	syntax: var obj = {
+			key1: value1,
+			key2: value2
+		}
+	-> this is best used when you have a single object with a unique scheme
+
+	-> using a function constructor
+		- we create a template for an object, so that we can reuse it to create 		multiple objects
+		- create the template
+		- have a capital first letter for the template
+	syntax:- function ObjTemplate(arg1, arg2 ...) {
+			this.state1 = arg1;
+			this.state2 = arg2;
+			...
+
+			this.func1 = function() {
+				// code
+				}
+			...
+			}
+		- creating an object using the template
+	syntax:- var obj1 = new objTemplate(parameter1, parameter2...)
+		
+
+	-> accessing data within the object
+	-> there are two methods
+		- using dot (.) operator
+		syntax:- obj.key
+			- is best in cases where you are sure what key you are accessing
+		
+		- using bracket([]) operator
+		syntax:- obj["key"]
+			- is best in cases where you might be getting key from user
+	
+	-> iterating through a object
+		syntax: for(var key in obj) {
+			console.log(key, obj[key]);
+		}
+
+26> global objects
+	-> they are built in objects
+	-> these objects are also called as wrapper objects
+	-> there objects wrap around a variable depending on the datatype, to provide 	additional methods tot he variable
+	- consider I am creating a string variable
+	- the program wraps this string variable in a String wrapper object
+	- this wrapper object with contain details about my string variable
+		eg: the object will give me access to length of my string
+	- along with details, it will also give me access to properties
+
+	-> Date
+		- it is used to create a date
+		syntax: var now = new Date();
+		
+		syntax: var someDate = new Date();
+			someDate.setDay(3)
+			someDate.setYear(1995)
+
+	-> Regex
+		- it is used to perform pattern matching
+		syntax: var myExp = /pattern/modifier
+
+	-> Array
+		- it is used to store multiple data using indecies
+		syntax: var arr1= new Array(data1, data2, ...)
+			or
+			var arr2= ['data1', data2...]
+		- to access items in an array,
+			- arr1[indexNo]
+
+	-> Math
+		- this object contains many properties that make easy to perform simple 		math calculations
+		- eg: finding mean of sequence
+
+
+	-> JSON
+		- it stands for javascript object notation
+		- it is a lightweight data format, used to exchange data between servers 		and clients
+		- it is pretty much a javascript object
+		- it differs from a regular object
+		- the key will have to be a string
+		syntax: an object - var obj = { 
+					key1: value1
+					}
+			an JSON - var json1 = {
+					"key1": value1
+					}
+		- JSON travels as string across networks
+		- to convert any data into JSON string
+			JSON.stringify(data)
+		- to convert any JSON string back into data
+			JSON.parse(string);
+		
+
+
+
+
+
+
+
+
+
+
