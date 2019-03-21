@@ -15,7 +15,9 @@ import Purecomp from './purecomponent';
 import Routing from './Routing/router';
 import Sendtoparent from './sendtoparent';
 import Validation from './validation';
-
+import Hook from './Hooks';
+import Memo from './memo';
+import Userdata from './redux/containers/GithubData';
 
 export default class RouterDemo extends Component {
     render(){
@@ -38,7 +40,9 @@ export default class RouterDemo extends Component {
                     <li><Link to="/routing">Routing</Link></li>
                     <li><Link to="/sendtoparent">Send To Parent</Link></li>
                     <li><Link to="/validation">Validation</Link></li>
-
+                    <li><Link to="/hook">React Hooks</Link></li>
+                    <li><Link to="/memo">React Memo</Link></li>
+                    <li><Link to="/thunk">Redux Thunk</Link></li>
             </ul>
             <hr />
                 <Route exact path="/" component={ Users } />
@@ -56,7 +60,9 @@ export default class RouterDemo extends Component {
                 <Route exact path="/routing" component={ Routing } />
                 <Route exact path="/sendtoparent" component={ Sendtoparent } />
                 <Route exact path="/validation" component={ Validation } />
-
+                <Route exact path="/hook" component={ Hook } />
+                <Route exact path="/memo" component={ Memo } />
+                <Route exact path="/thunk" component={ Userdata } />
             </div>
             </Router>
            

@@ -1,6 +1,18 @@
 import React from 'react';
 import '../App.css';
+import Loadable from 'react-loadable';
 
+function Loading() {
+   return <h3>Loading...</h3>;
+ }
+/* The React Loadable function lets you render a dynamic import as a regular component
+ React Loadable available for server-side rendering. 
+  */
+ const Load = Loadable({
+   loader: () => import('../components/Loadable'),
+   loading: Loading,
+   delay: 2000
+ });
 
 class Signin extends React.Component {
    constructor() {
@@ -23,6 +35,7 @@ class Signin extends React.Component {
    render() {
       return (
          <div>
+            <Load></Load> <hr color='green'/>
              <form  className="formElements">
                 <div>
                     <h1>Sign In</h1>
