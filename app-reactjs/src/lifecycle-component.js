@@ -1,5 +1,6 @@
 import React from 'react';
 
+import image from './images/React_lifecycle.jpg';
 class Lifecycle extends React.Component {
    constructor(props) {
       super(props);
@@ -47,7 +48,8 @@ class Lifecycle extends React.Component {
          <div>
              <p>Check in console</p>
             <p>{this.state.data}</p>
-            <button onClick = {this.setNewNumber}>INCREMENT</button>
+            <button onClick = {this.setNewNumber}>INCREMENT</button> <br /><br />
+            <img src={image} width="800px"/>
             <Child />
          </div>
       );
