@@ -18,6 +18,7 @@ import Validation from './validation';
 import Hook from './Hooks';
 import Memo from './memo';
 import Userdata from './redux/containers/GithubData';
+import Grandmother from './contextApi/grandMother';
 
 export default class RouterDemo extends Component {
     render(){
@@ -43,6 +44,7 @@ export default class RouterDemo extends Component {
                     <li><Link to="/hook">React Hooks</Link></li>
                     <li><Link to="/memo">React Memo</Link></li>
                     <li><Link to="/thunk">Redux Thunk</Link></li>
+                    <li><Link to="/contextapi">Context API</Link></li>
             </ul>
             <hr />
                 <Route exact path="/" component={ Users } />
@@ -63,6 +65,7 @@ export default class RouterDemo extends Component {
                 <Route exact path="/hook" component={ Hook } />
                 <Route exact path="/memo" component={ Memo } />
                 <Route exact path="/thunk" component={ Userdata } />
+                <Route exact path="/contextapi" component={ Grandmother } />
             </div>
             </Router>
            

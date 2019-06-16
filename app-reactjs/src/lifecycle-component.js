@@ -26,7 +26,7 @@ class Lifecycle extends React.Component {
         return true;
    }
 
-   componentWillUpdate(netProps, nextState){
+   componentWillUpdate(nextProps, nextState){
        console.log("component will update");
    }
 
