@@ -20,6 +20,7 @@ import Memo from './memo';
 import Userdata from './redux/containers/GithubData';
 import Grandmother from './contextApi/grandMother';
 import Errorcomponent from './ErrorBoundary/heroComponent';
+import Connected from './dynamicForm';
 
 export default class RouterDemo extends Component {
     render(){
@@ -47,6 +48,7 @@ export default class RouterDemo extends Component {
                     <li><Link to="/thunk">Redux Thunk</Link></li>
                     <li><Link to="/contextapi">Context API</Link></li>
                     <li><Link to="/errorboundary">Error Boundary</Link></li>
+                    <li><Link to="/dynamicform">Dynamic Form</Link></li>
             </ul>
             <hr />
                 <Route exact path="/" component={ Users } />
@@ -69,6 +71,7 @@ export default class RouterDemo extends Component {
                 <Route exact path="/thunk" component={ Userdata } />
                 <Route exact path="/contextapi" component={ Grandmother } />
                 <Route exact path="/errorboundary" component={ Errorcomponent } />
+                <Route exact path="/dynamicform" component={ Connected } />
             </div>
             </Router>
            
