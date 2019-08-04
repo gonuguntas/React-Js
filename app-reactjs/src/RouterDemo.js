@@ -15,10 +15,11 @@ import Purecomp from './purecomponent';
 import Routing from './Routing/router';
 import Sendtoparent from './sendtoparent';
 import Validation from './validation';
-import Hook from './Hooks';
+import Hook from './Hooks/Hooks';
 import Memo from './memo';
 import Userdata from './redux/containers/GithubData';
 import Grandmother from './contextApi/grandMother';
+import Errorcomponent from './ErrorBoundary/heroComponent';
 
 export default class RouterDemo extends Component {
     render(){
@@ -45,6 +46,7 @@ export default class RouterDemo extends Component {
                     <li><Link to="/memo">React Memo</Link></li>
                     <li><Link to="/thunk">Redux Thunk</Link></li>
                     <li><Link to="/contextapi">Context API</Link></li>
+                    <li><Link to="/errorboundary">Error Boundary</Link></li>
             </ul>
             <hr />
                 <Route exact path="/" component={ Users } />
@@ -66,6 +68,7 @@ export default class RouterDemo extends Component {
                 <Route exact path="/memo" component={ Memo } />
                 <Route exact path="/thunk" component={ Userdata } />
                 <Route exact path="/contextapi" component={ Grandmother } />
+                <Route exact path="/errorboundary" component={ Errorcomponent } />
             </div>
             </Router>
            
