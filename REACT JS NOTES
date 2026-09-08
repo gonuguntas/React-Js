@@ -28,4 +28,15 @@ Differences between class component and functional component
   3) Performance - Avoids performance issue and memory issue creating class insances.
   4) Easier testing - easy to write test cases.
   5) Cleaner life cycle Logic - useEffect groups related logic instead of splitting into multiple life cycle methods.
+
+React Fragments - Fragments is a feature that allows you to group multiple child elements together without 
+                  adding extra DOM nodes into the browser real DOM.
+  1) Syntax - short form <> </>   Long form <React.Fragment> </React.Fragment>
+  2) No extra DOM Nodes - fragments do not renders into the final HTML output.
+  3) Maintains HTML structure - ex:- bad syntax with div <td> <div> </div> </td> fragments resolve this issues.
+  4) Keep CSS without breaking - extra div may break existing CSS like css flex box and grid. 
+  5) Performance - By reducing the no of nested DOM Nodes, applicstions use less memory and faster in rendering.
+  6) Key prop execution - when using key prop then use <React.Fragment key={ID}>
+
+
     
