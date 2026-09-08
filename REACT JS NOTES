@@ -1,0 +1,31 @@
+
+stateless components or presentational components --- components do not manage, update or track their internal state.
+core features:
+  1) No internal state - They do not use useState or this.state
+  2) No side effects - No data fetching and leaves state logic to statefull container.
+  3) Predictable & pure - They act as pure functions with same props. They will always render exact same UI output.
+  4) Driven by props - They receive data from their parent component through props and render it directly.
+Advantages:
+  1) Reusability - Easy to reuse across different parts of application ( No dependent with any side effects).
+  2) Performance - Light weight execution because they do not track life cycle hooks and state updates.
+  3) Easier Testing - Simple to write unit test cases because there is no complex state updates or side effects.
+
+When component re-renders
+  1) State Updates - Modifying state with useState ( setter function).
+  2) prop changes - Receiving new data from parent components.
+  3) Context changes - Consumed context values changes.
+  4) Parent re-renders - Child component re-renders when parent component re-renders.
+
+Differences between class component and functional component
+  1) syntax - functional components are plain Javascript functions. class components extend React.Component.
+  2) state -  functional components use useState hook and class components uses this.state.
+  3) Life cycle - functional components handles with useEffect hook and  class components
+                  life cycle methods like componentDidMount, componentDidUpdate and componentWillUnmount
+  4) This keyword - functional components do not use this and class components heavily depends on this and require method binding.
+  Why functional components prefered:
+  1) Less boilerplate - cleaner, shorter and easier code to read and maintain.
+  2) Logic reuse - custom hooks allow sharing statefull logic between components easily.
+  3) Performance - Avoids performance issue and memory issue creating class insances.
+  4) Easier testing - easy to write test cases.
+  5) Cleaner life cycle Logic - useEffect groups related logic instead of splitting into multiple life cycle methods.
+    
