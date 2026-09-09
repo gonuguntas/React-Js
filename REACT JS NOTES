@@ -1,3 +1,23 @@
+Semantic elements: are HTML tags that clearly describe the meaning and purpose of their content 
+to browsers, developers, and search engines.
+Advantages: 
+1) Better Readability - Developers can quickly locate different parts of the page.
+                        Makes code easier to understand and maintain.
+2) Improves SEO - Search engines can better understand the webpage structure.
+3) Better Accessibility - Screen readers can identify page sections easily. Improves user experience for visually disabled users.
+4) Browser Understanding - Browsers can interpret the content more meaningfully. 
+Browser can better support accessibility tools, help search engines identify important content, improve page structure interpretation
+
+Advantages of HTML5 Input Types:
+1) Built-in Validation - Browser automatically validates data. Example: email, url.
+2) Better User Experience - Date pickers, color pickers, sliders are provided automatically.
+3) Mobile-Friendly - Mobile devices show appropriate keyboards. Example: type="email" → Email keyboard type="tel" → Numeric keypad
+4) Improved Accessibility - Browsers understand the expected input type and screen readers reads onput types like Number edit field.
+
+
+
+
+
 
 stateless components or presentational components --- components do not manage, update or track their internal state.
 core features:
