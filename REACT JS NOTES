@@ -58,5 +58,46 @@ React Fragments - Fragments is a feature that allows you to group multiple child
   5) Performance - By reducing the no of nested DOM Nodes, applicstions use less memory and faster in rendering.
   6) Key prop execution - when using key prop then use <React.Fragment key={ID}>
 
+Props vs State
+  source of data:   
+                  props: Data received from parent component to child component.
+                  state: initilized and updated within the component itself.
+  Mutability: 
+                  props: Read only (  within child component only)
+                  state: Mutable  ( can be modified with setter function )
+  Re-trigger 
+                  props:  Yes if the parent passes new prop values.
+                  state: Yes whenever the local state setter function called.
+
+Context API
+  1) solves prop-drilling, global state management for small applications
+  2) Three pillars of comtext: React.createContext(initialValue) - creates context
+                                Context.Provider -A wrapper component that makes value prop to avail all child components.
+                                useContext(Contextobj): Hook is used to inside component to consume data  
+
+
+Context API disadvantages:
+  1) Performance issue: if context holds an object with multiple pieces of data {name:"nag", age:30} 
+                        if name updates then all components with age also re-rendering.
+                        Bypasses Optimization: context re-renders even that component uses Reac.memo
+  2) Reduced component re-usability : tight coupling with context so no reuse. reducing modularity.
+  3) Not suited for high frequency applications: This is component level
+  4) High configuration, No middlewares ( but redux has middleware),
+                      Nested hell means context Compoents onto other context components.
+
+controlled components vs uncontrolled components:
+  controlled component:  Form data completely handled by React component state. 
+  uncontrolled component:  Form data completely handled DOM itself.
+Data storage: controlled component - Managed in React local state
+              uncontrolled component - Managed in browser DOM Nodes.
+Accessing value: controlled component - linked to component state variable.
+                 uncontrolled component - accessing using  useRef()
+Update Mechanism: controlled component - Triggered on every key stroke via onChange
+                  uncontrolled component - Read once from the DOM ( often on form submitted)
+Form Validation: controlled component - Reacl time validation on typing data
+                  uncontrolled component - On- submit validation
+
+                                      
+
 
     
