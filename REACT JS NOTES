@@ -98,6 +98,14 @@ Form Validation: controlled component - Reacl time validation on typing data
                   uncontrolled component - On- submit validation
 
                                       
-
-
+ReactJS Lazy loading: optimization technique and architecture
+  On-Demand Loading: lazy loading is an optimization technique that delay the download of a component's bundle
+                      untill it is actually rendered or needed by the user.
+  Code Splitting: It relies on code splitting which breaks down a single large javascript application  bundle onto 
+                  smaller, manageable file bundles or chunks.
+  React.lazy() -  wraps a dynamic import() statement to load your target component asynchronously.
+                  ( target component must be exported as default export )
+  <Suspense> Wrapper component : Lazy component loads asynchronously, React needs a fallback state to prevent application
+                                from throwing errors. It takes mandatory fallback prop. which accepts JSX elements.
+Use cases: Route based code splitting, Heavy Widgets( components), conditional rendering components
     
