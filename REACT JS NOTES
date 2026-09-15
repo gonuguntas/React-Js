@@ -112,6 +112,33 @@ Use cases: Route based code splitting, Heavy Widgets( components), conditional r
 
 React JS micro front-end ( MFE ): 
   is an architectural pattern where a large, complex React web application is split into smaller, 
-  completely independent apps that can be developed, tested, and deployed individually.
+  completely independent apps that can be developed, tested, and deployed individually. ( Single Responsibility )
+1) Independent Development - Different teams can develop different parts of the application independently.
+2) Independent Deployment - Each micro frontend can be deployed separately without affecting other modules.
+3) Technology Flexibility - Teams can choose different versions of React or even different frameworks if required.
+              Easier technology upgrades.
+4) Improved Maintainability - Smaller codebases are easier to understand, test, and maintain. Less dependency on other teams.
+Disadvantages : 
+  1) Increased Complexity - Requires additional architecture planning.
+  2) Performance Overhead - Multiple bundles may increase initial loading time. Duplicate dependencies can increase application size.
+  3) Shared State Challenges - Communication between micro frontends or state management can be difficult.
+  4) Duplicate Dependencies - Different modules may load the same libraries multiple times.
 
-    
+Module Federation is a feature of Webpack 5 that allows one application (Host) to dynamically load code 
+from another application (Remote) at runtime without rebuilding the host application.
+Host Application - The main application that consumes modules from remote applications.
+  const ProductApp = React.lazy(() => import("productApp/ProductList") );
+  <Suspense fallback={<div>Loading...</div>}>
+    <ProductApp />
+  </Suspense>
+  plugins: [
+new ModuleFederationPlugin({
+name: "host",
+remotes: {
+  remoteApp:  "remoteApp@http://localhost:3001/remoteEntry.js"
+},
+What is a Remote Application - A Remote Application exposes components, pages, or utility modules that 
+                                can be consumed by Host Applications.
+exposes: {
+      "./Header": "./src/components/Header"
+},
