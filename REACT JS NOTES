@@ -148,3 +148,73 @@ federation({
  exposes: {
         './Button': './src/components/Button.jsx',
       }
+
+
+
+Protected or Authenticated Route : A Protected Route is a route that only authenticated (logged-in) users can access.
+  Without Protected Routes: User manually enters ---- localhost:3000/dashboard and can access pages directly.
+  Protected Routes prevent unauthorized access.
+Role-Based Routing : A user may be logged in, but not everyone should see every page.
+
+Better Approach
+Make one parent route protected.
+{
+  element: <ProtectedRoute />,
+  children: [
+    {
+      path: "/dashboard",
+      element: <Dashboard />
+    },
+    {
+      path: "/profile",
+      element: <Profile />
+    },
+    {
+      path: "/settings",
+      element: <Settings />
+    }
+  ]
+}
+Now all children inherit authentication.
+
+import { Navigate, Outlet } from "react-router-dom";
+function ProtectedRoute() {
+  const token = localStorage.getItem("token");
+  return token ? <Outlet /> : <Navigate to="/" />;
+}
+export default ProtectedRoute;
+
+
+Parent Protected Route + Child Role Route
+
+{
+  element: <ProtectedRoute />,
+  children: [
+
+    {
+      path: "/dashboard",
+      element: <Dashboard />
+    },
+
+    {
+      element: (
+        <RoleBasedRoute
+          allowedRoles={["Admin"]}
+        />
+      ),
+
+      children: [
+        {
+          path: "/users",
+          element: <Users />
+        }
+      ]
+    }
+
+  ]
+}
+
+Why Child Routes? 
+Using a parent ProtectedRoute with child routes avoids repeating authentication logic for every route. 
+The Outlet component renders the matched child route inside the parent route, making route management cleaner and scalable.
+
