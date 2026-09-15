@@ -127,18 +127,24 @@ Disadvantages :
 Module Federation is a feature of Webpack 5 that allows one application (Host) to dynamically load code 
 from another application (Remote) at runtime without rebuilding the host application.
 Host Application - The main application that consumes modules from remote applications.
-  const ProductApp = React.lazy(() => import("productApp/ProductList") );
+  const RemoteButton = React.lazy(() => import('remoteApp/Button'));
   <Suspense fallback={<div>Loading...</div>}>
-    <ProductApp />
+    <RemoteButton />
   </Suspense>
   plugins: [
-new ModuleFederationPlugin({
-name: "host",
-remotes: {
-  remoteApp:  "remoteApp@http://localhost:3001/remoteEntry.js"
-},
+federation({
+      name: 'host_app',
+      remotes: {
+        remoteApp: {
+          type: 'module',
+          entry: 'http://localhost:5175/remoteEntry.js',
+        },
+      },
 What is a Remote Application - A Remote Application exposes components, pages, or utility modules that 
                                 can be consumed by Host Applications.
-exposes: {
-      "./Header": "./src/components/Header"
-},
+federation({
+      name: 'remote_app',
+      filename: 'remoteEntry.js',
+ exposes: {
+        './Button': './src/components/Button.jsx',
+      }
