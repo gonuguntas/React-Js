@@ -108,4 +108,10 @@ ReactJS Lazy loading: optimization technique and architecture
   <Suspense> Wrapper component : Lazy component loads asynchronously, React needs a fallback state to prevent application
                                 from throwing errors. It takes mandatory fallback prop. which accepts JSX elements.
 Use cases: Route based code splitting, Heavy Widgets( components), conditional rendering components
+
+
+React JS micro front-end ( MFE ): 
+  is an architectural pattern where a large, complex React web application is split into smaller, 
+  completely independent apps that can be developed, tested, and deployed individually.
+
     
