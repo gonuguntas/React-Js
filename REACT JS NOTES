@@ -218,3 +218,20 @@ Why Child Routes?
 Using a parent ProtectedRoute with child routes avoids repeating authentication logic for every route. 
 The Outlet component renders the matched child route inside the parent route, making route management cleaner and scalable.
 
+<Outlet /> is a special component from React Router used in parent routes to render the matched child route.
+<Navigate /> is used to redirect the user to another route programmatically during rendering.
+The replace prop in <Navigate /> replaces the current entry in the browser history instead of pushing a new one. 
+                                It is commonly used in protected and role-based routes to prevent users from 
+                                navigating back to restricted pages using the browser's Back button.
+
+<Navigate /> is a component used for redirecting during rendering.
+useNavigate("/login", { state:{id:999, name: "nag"} }) is a hook used for navigation inside functions, events, API callbacks, etc.
+Route Parameters <Link to="/dashboard/101">   {path: "/dashboard/:id", element: <Dashboard /> }
+To get params  const { id } = useParams();
+
+Query Parameters - <Link to="/dashboard?id=101&name=Nageswara">   const [searchParams] = useSearchParams();
+get query params - const id = searchParams.get("id");  const name = searchParams.get("name");
+
+State Object (Hidden Data) - <Link to="/login" state={{name: "nag", id: 555}}
+  get state data :  const { state } = useLocation();
+
