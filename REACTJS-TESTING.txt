@@ -626,3 +626,13 @@ test("renders dashboard route", () => {
   ).toBeInTheDocument();
 });
 
+Queries → Used to find/select elements from the rendered DOM.
+Assertions → Used to verify/validate expected behavior or state of those elements.
+
+
+
+
+Debugging Tips:
+	screen.debug() - used to print the currently rendered DOM in the test console.
+	screen.debug(element) - is the same as screen.debug(), but instead of printing the entire DOM, it prints 				only the specified element.
+	screen.logTestingPlaygroundURL() - It generates a Testing Playground URL for the currently rendered DOM. By opening the URL, developers can inspect elements and receive recommendations for the most appropriate queries
