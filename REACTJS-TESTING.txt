@@ -1,0 +1,628 @@
+render - The render function takes a React component, compiles it, and inserts it into a virtual browser DOM
+
+screen - The screen object represents the entire visible webpage (the body of the document) where your component was just rendered. It provides pre-built queries to help you find specific HTML elements on that page.
+
+getBy - looks for an element synchronously and throws an error immediately if it is not found.
+queryBy - looks for an element synchronously and returns null (instead of throwing an error) if it is not found, making it ideal for asserting that an element is missing.
+findBy -  looks for an element asynchronously by returning a Promise that waits up to a timeout for the element to appear in the DOM
+
+1. getByRole (Highest Priority) - 
+	When to use: Use this to find elements by their semantic HTML role (e.g., button, heading, link, checkbox). 	This is the absolute preferred method.
+2. getByLabelText  When to use: Best for testing form fields. It finds an input element by looking for its associated <label> text.
+3. getByPlaceholderText When to use: Use this for input fields that do not have a visible label but use a placeholder attribute to guide the user.
+4. getByText  When to use: Ideal for finding regular text elements outside of forms and interactive elements (like paragraphs <p>, <div>, or <span>). It mimics a user reading the screen.
+5. getByDisplayValue   When to use: Use this to find a form field (input, textarea, select) that already has a specific value populated inside it.
+6. getByAltText   When to use: Specifically used for finding images (<img>), areas, or inputs that use the alt (alternative) text attribute.
+7. getByTitle   When to use: Used to find elements that have a HTML title attribute or SVG graphics that contain a title tag.
+8. getByTestId (Last Resort 🛑)When to use: Use this only when none of the above methods work (e.g., dynamic text, complex custom components). You must explicitly add a data-testid="your-id" attribute to your HTML element.
+
+
+
+expect assertions
+1. DOM Element Presence & State
+
+toBeInTheDocument()  -- When to use: To check if a single element is physically present in the DOM. Example: expect(screen.getByRole('button')).toBeInTheDocument();
+
+not.toBeInTheDocument()   --   When to use: To verify an element is completely missing from the DOM (paired with queryBy).
+
+toBeVisible() --  When to use: To check if an element is present and visible to the user (not hidden via display: none or visibility: hidden).
+Example: expect(screen.getByText('Error Alert')).toBeVisible();
+
+toBeDisabled() / toBeEnabled()  --  When to use: To verify form elements (like buttons or inputs) are interactive or locked.      Example: expect(submitButton).toBeDisabled();
+
+2. Arrays, Collections & Lengths   -- Use these when handling lists, multiple elements (getAllBy), or counting items.
+
+toHaveLength(number)  --  When to use: To assert the exact number of elements or items inside an array.
+  Example: expect(screen.getAllByRole('listitem')).toHaveLength(5);
+
+toBeGreaterThan(number) / toBeLessThan(number)  -- When to use: When you don't know the exact count, but want to make sure a list is not empty or fits a range.
+Example: expect(items.length).toBeGreaterThan(0);
+
+3. Element Values & Attributes 
+
+toHaveTextContent(string_or_regex)   -- When to use: To check if an element contains specific text inside it.      Example: expect(screen.getByRole('heading')).toHaveTextContent('Welcome');
+
+toHaveValue(string_or_number)  --  When to use: Specifically for form inputs, textareas, or selects to check what the user typed.      Example: expect(screen.getByLabelText('Username')).toHaveValue('JohnDoe');
+
+toHaveAttribute(name, value) --  When to use: To verify HTML properties like src on images, href on links, or custom properties.     Example: expect(screen.getByRole('link')).toHaveAttribute('href', '/home');
+
+4. Basic Values & Object Matching (Core Jest/Vitest)
+
+toBe(value)  --  When to use: For primitive values (strings, numbers, booleans) or checking exact referential equality.    Example: expect(2 + 2).toBe(4);
+
+toEqual(value)   --  When to use: For deep equality. Use this when comparing arrays or objects to check their structure.     Example: expect(userObject).toEqual({ name: 'Alice', age: 25 });
+
+toBeTruthy() / toBeFalsy()  --  When to use: To check if a variable evaluates to true or false in a boolean context.      Example: expect(isDropdownOpen).toBeTruthy();
+
+5. Mock Functions & Spies  -- Use these when you want to track if a function or user action was triggered.
+
+toHaveBeenCalled() -- When to use: To verify a mock function (like a click handler or API call wrapper) was executed.        Example: expect(mockOnClick).toHaveBeenCalled();
+
+toHaveBeenCalledTimes(number)  -- When to use: To ensure a function was triggered the exact number of times expected (e.g., stopping accidental double clicks).   Example: expect(mockSubmit).toHaveBeenCalledTimes(1);
+
+
+
+fireEvent vs userEvent in React Testing Library:
+fireEvent: Synchronous. Executes immediately without waiting. If you click an element, it only fires the click event.
+fireEvent.change() dumps the entire string into the input field at once.
+
+userEvent: Asynchronous. Returns a Promise, so you must use await.If you click an element, it fires hover, mousedown, focus, click, and mouseup in the correct order.
+user.type() presses keys one-by-one, firing keydown, keypress, and keyup for every single character.
+
+
+How do you test Axios APIs?
+	I mock Axios using vi.mock("axios"), provide a fake response using mockResolvedValue, trigger the user action with userEvent.click(), verify the API invocation using toHaveBeenCalled(), and validate the UI update with findByText().
+import { useState } from "react";
+import axios from "axios";
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+
+  const loadUsers = async () => {
+    const response = await axios.get("/users");
+
+    setUsers(response.data);
+  };
+
+  return (
+    <div>
+      <button onClick={loadUsers}>
+        Load Users
+      </button>
+
+      {users.map((user) => (
+        <p key={user.id}>
+          {user.name}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+export default UserList;
+
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import axios from "axios";
+import UserList from "./UserList";
+import { vi } from "vitest";
+
+vi.mock("axios");
+
+test("loads users on button click", async () => {
+  axios.get.mockResolvedValue({
+    data: [
+      {
+        id: 1,
+        name: "John"
+      }
+    ]
+  });
+
+  render(<UserList />);
+
+  const user = userEvent.setup();
+
+  await user.click(
+    screen.getByRole("button", {
+      name: /load users/i
+    })
+  );
+
+  expect(axios.get)
+    .toHaveBeenCalledTimes(1);
+
+  expect(axios.get)
+    .toHaveBeenCalledWith("/users");
+
+  expect(
+    await screen.findByText("John")
+  ).toBeInTheDocument();
+});
+
+API call in useEffect
+import { render, screen } from "@testing-library/react";
+import axios from "axios";
+import UserList from "./UserList";
+import { vi } from "vitest";
+
+vi.mock("axios");
+
+test("loads users on component mount", async () => {
+  axios.get.mockResolvedValue({
+    data: [
+      {
+        id: 1,
+        name: "John",
+      },
+      {
+        id: 2,
+        name: "David",
+      },
+    ],
+  });
+
+  render(<UserList />);
+
+  expect(axios.get).toHaveBeenCalledTimes(1);
+
+  expect(axios.get).toHaveBeenCalledWith("/users");
+
+  expect(
+    await screen.findByText("John")
+  ).toBeInTheDocument();
+
+  expect(
+    await screen.findByText("David")
+  ).toBeInTheDocument();
+});
+
+Testing functions
+	React Testing Library follows a user-centric approach. Instead of testing component functions directly, we simulate user actions such as clicks and typing using userEvent, and then verify the resulting UI changes or function calls. This makes tests closer to real user behavior.
+
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <>
+      <h1>{count}</h1>
+
+      <button onClick={increment}>
+        Increment
+      </button>
+    </>
+  );
+}
+
+export default Counter;
+
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Counter from "./Counter";
+
+test("increment function should update count", async () => {
+  render(<Counter />);
+
+  const user = userEvent.setup();
+
+  await user.click(
+    screen.getByRole("button")
+  );
+
+  expect(
+    screen.getByText("1")
+  ).toBeInTheDocument();
+});
+
+
+
+Testing input change
+import { useState } from "react";
+
+function UserForm() {
+  const [name, setName] = useState("");
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  return (
+    <>
+      <input
+        placeholder="Enter Name"
+        value={name}
+        onChange={handleChange}
+      />
+
+      <h2>{name}</h2>
+    </>
+  );
+}
+
+export default UserForm;
+
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import UserForm from "./UserForm";
+
+test("handleChange updates input value", async () => {
+  render(<UserForm />);
+
+  const user = userEvent.setup();
+
+  const input =
+    screen.getByPlaceholderText(
+      "Enter Name"
+    );
+
+  await user.type(input, "Nageswara");
+
+  expect(input)
+    .toHaveValue("Nageswara");
+
+  expect(
+    screen.getByText("Nageswara")
+  ).toBeInTheDocument();
+});
+
+Testing Function with Props Callback
+
+function SaveButton({ onSave }) {
+  return (
+    <button onClick={onSave}>
+      Save
+    </button>
+  );
+}
+
+export default SaveButton;
+
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
+import SaveButton from "./SaveButton";
+
+test("should call onSave function", async () => {
+  const mockSave = vi.fn();
+
+  render(
+    <SaveButton onSave={mockSave} />
+  );
+
+  const user = userEvent.setup();
+
+  await user.click(
+    screen.getByText("Save")
+  );
+
+  expect(mockSave)
+    .toHaveBeenCalledTimes(1);
+});
+
+
+vi vs jest
+Jest  ---> Older / Traditional
+Vitest ---> Modern / Vite Projects
+vi is the Vitest equivalent of Jest's jest object. Both provide APIs for mocking, spying, and assertions. In Vite-based React projects, Vitest is generally preferred, so we use vi.fn(), vi.mock(), and vi.spyOn() instead of jest.fn(), jest.mock(), and jest.spyOn().
+
+
+
+vi.spyOn()  vs vi.mock(axios) vs vi.fn()
+vi.spyOn() spyOn() is used to watch an existing function and track how it is used during a test.This is outside component.
+vi.mock("axios") Replace a real dependency with a fake data during testing.
+vi.fn() -  is used to create a mock (fake) function.
+
+// userService.js
+
+import axios from "axios";
+export const getUsers = async () => {
+  const response = await axios.get("/users");
+  return response.data;
+};
+import { getUsers } from "./userService";
+
+function Users() {
+  const loadUsers = async () => {
+    await getUsers();
+  };
+
+  return (
+    <button onClick={loadUsers}>
+      Load Users
+    </button>
+  );
+}
+
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import * as userService from "./userService";
+import { vi } from "vitest";
+import Users from "./Users";
+
+test("calls getUsers on button click", async () => {
+
+  vi.spyOn(
+    userService,
+    "getUsers"
+  ).mockResolvedValue([
+    {
+      id: 1,
+      name: "John"
+    }
+  ]);
+
+  render(<Users />);
+
+  const user = userEvent.setup();
+
+  await user.click(
+    screen.getByRole("button")
+  );
+
+  expect(
+    userService.getUsers
+  ).toHaveBeenCalledTimes(1);
+});
+
+vi.fn() → Create fake function
+vi.spyOn() → Watch existing function
+vi.mock() → Mock entire module
+
+
+
+How do you test a component that consumes Context API?
+	Wrap the component under test with the corresponding Context Provider and pass mock values through the provider's value prop. Then verify the component renders or behaves correctly based on those context values.
+
+Step 1: Create Context
+AuthContext.jsx
+import { createContext } from "react";
+export const AuthContext = createContext();
+
+Step 2: Component Using Context
+Profile.jsx
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
+
+function Profile() {
+  const { username } =
+    useContext(AuthContext);
+
+  return (
+    <h1>
+      Welcome {username}
+    </h1>
+  );
+}
+
+export default Profile;
+
+Step 3: Test Component
+Profile.test.jsx
+import { render, screen } from "@testing-library/react";
+import Profile from "./Profile";
+import { AuthContext } from "./AuthContext";
+
+test("displays username from context", () => {
+  render(
+    <AuthContext.Provider
+      value={{
+        username: "Nageswara Rao"
+      }}
+    >
+      <Profile />
+    </AuthContext.Provider>
+  );
+
+  expect(
+    screen.getByText(
+      "Welcome Nageswara Rao"
+    )
+  ).toBeInTheDocument();
+});
+
+
+
+How do you test a React component that consumes Redux state?
+	1)Create a mock/test Redux store.
+	2)Wrap the component with Redux <Provider>.
+	3)Pass the test store to the Provider.
+	4)Render the component.
+	5)Verify UI output using React Testing Library.
+	6)For actions, mock dispatch and verify the dispatched action.
+
+Component Using Redux
+UserProfile.jsx
+
+import { useSelector } from "react-redux";
+
+function UserProfile() {
+  const username = useSelector(
+    (state) => state.user.username
+  );
+
+  return (
+    <h1>
+      Welcome {username}
+    </h1>
+  );
+}
+
+export default UserProfile;
+
+UserProfile.test.jsx
+
+import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import UserProfile from "./UserProfile";
+
+const initialState = {
+  user: {
+    username: "Nageswara Rao"
+  }
+};
+
+function reducer(
+  state = initialState,
+  action
+) {
+  return state;
+}
+
+const store = createStore(reducer);
+
+test("renders username from redux store", () => {
+  render(
+    <Provider store={store}>
+      <UserProfile />
+    </Provider>
+  );
+
+  expect(
+    screen.getByText(
+      "Welcome Nageswara Rao"
+    )
+  ).toBeInTheDocument();
+});
+
+
+
+Testing useDispatch()
+
+import { useDispatch } from "react-redux";
+
+function Counter() {
+  const dispatch = useDispatch();
+
+  const increment = () => {
+    dispatch({
+      type: "INCREMENT"
+    });
+  };
+
+  return (
+    <button onClick={increment}>
+      Increment
+    </button>
+  );
+}
+
+export default Counter;
+
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import Counter from "./Counter";
+
+const store = createStore(
+  (state = {}) => state
+);
+
+test("dispatches increment action", async () => {
+  store.dispatch = vi.fn();
+
+  render(
+    <Provider store={store}>
+      <Counter />
+    </Provider>
+  );
+
+  const user = userEvent.setup();
+
+  await user.click(
+    screen.getByRole("button")
+  );
+
+  expect(store.dispatch)
+    .toHaveBeenCalledWith({
+      type: "INCREMENT"
+    });
+});
+
+
+
+How do you test a routed component?
+	For applications using createBrowserRouter, route testing is typically done using createMemoryRouter. The test creates an in-memory router with route definitions and uses initialEntries to simulate a URL. The component is rendered through RouterProvider, and assertions verify navigation, route parameters, redirects, and protected-route behavior.
+
+
+function Home() {
+  return <h1>Home Page</h1>;
+}
+
+export default Home;
+
+function Dashboard() {
+  return <h1>Dashboard Page</h1>;
+}
+
+export default Dashboard;
+
+router.js
+import {
+  createBrowserRouter
+} from "react-router-dom";
+
+import Home from "./Home";
+import Dashboard from "./Dashboard";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />
+  }
+]);
+
+Router.test.jsx
+
+import {
+  createMemoryRouter,
+  RouterProvider
+} from "react-router-dom";
+
+import { render, screen } from "@testing-library/react";
+
+import Home from "./Home";
+import Dashboard from "./Dashboard";
+
+test("renders dashboard route", () => {
+
+  const router = createMemoryRouter(
+    [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />
+      }
+    ],
+    {
+      initialEntries: ["/dashboard"]
+    }
+  );
+
+  render(
+    <RouterProvider
+      router={router}
+    />
+  );
+
+  expect(
+    screen.getByText(
+      "Dashboard Page"
+    )
+  ).toBeInTheDocument();
+});
+
