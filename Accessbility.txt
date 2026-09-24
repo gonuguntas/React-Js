@@ -1,0 +1,106 @@
+disability person types 
+👁️ Visually impaired (screen readers)
+🎨 Color blindness
+⌨️ Cannot use a mouse (keyboard only)
+🤚 Motor disabilities
+👂 Hearing impaired
+🧠 Cognitive disabilities
+
+Golden Rule - Use semantic HTML first - Semantic HTML gives accessibility for free.
+
+1. Text Accessibility 
+ bad - font-size: 10px;
+ better - font-size: 16px;
+Only One H1 Per Main Page
+Avoid ALL CAPS Text - All caps reduces readability.
+Use Clear and Simple Language - Keep content easy to understand for Cognitive disability persons.
+Allow Text Zoom - Users should be able to zoom to: 200%
+Adequate Line Spacing, Adequate Paragraph Spacing
+Use Lists for Related Content
+
+
+2. Images Accessibility
+Informative image → meaningful alt text.
+Decorative image → empty alt.
+
+3. Links Accessibility (<a>)
+meaning less - Click here
+clear meaning - View Products
+
+4. Button Accessibility 
+use button  tag only. Don't use like <div>save</div> and adding css
+Buttons automatically support:
+✅ Keyboard
+✅ Focus
+✅ Screen readers
+5. Form Accessibility
+Label Every Input, Required Fields, Error Handling-Screen readers announce the error.
+7. Focus Visibility
+Never remove focus outline.
+button:focus {
+outline: 2px solid blue;
+}
+Keyboard users must know where focus is.
+
+8. Color Accessibility
+Don't Use Color Alone - Color blind users may not notice
+Use:  Text, Icons, Labels along with color.
+
+Good Contrast - According to WCAG, normal text should have at least a 4.5:1 contrast ratio and large text should have at least a 3:1 ratio
+Hard to read.
+color: lightgray;
+background: white;
+High contrast is better.
+color: black;
+background: white;
+
+10. Dynamic Content Accessibility
+When content changes dynamically:
+Used for:
+Success messages
+Notifications
+API responses
+
+11. Tables Accessibility  -  add scope for <th>
+
+12. Accessibility for Modals
+When modal opens:
+✅ Focus moves inside modal
+✅ ESC closes modal
+✅ Focus returns to previous element
+
+Most Important Accessibility Attributes:----
+
+aria-label aria-labelledby  aria-describedby aria-hidden aria-live aria-expanded
+aria-controls aria-invalid aria-required aria-selected aria-checked 
+role tabIndex htmlFor
+
+
+
+
+
+area-label   - reads text
+area-labelledby   -  connects other elements text area-labelledby="id1 id2 id3" - overrides label element,area-label
+area-describeby - 
+area-hidden -to hide element from screen readers only
+area-required - reads like required
+area-invalid   - reads like Email, edit text, invalid entry
+aria-expanded="false  
+<div role="checkbox" aria-checked="false" tabindex="0">  checkbox, unchecked
+<div role="checkbox" aria-checked="true" tabindex="0"> checkbox, checked
+<div role="radio" aria-checked="false" tabindex="0" id="male-opt">Male
+aria-selected
+<div role="tablist">
+  <!-- ఈ ట్యాబ్ సెలెక్ట్ కాలేదు -->
+  <button role="tab" aria-selected="false" id="home-tab">హోమ్ (Home)</button>
+  
+  <!-- ఈ ట్యాబ్ ప్రస్తుతం సెలెక్ట్ చేయబడింది -->
+  <button role="tab" aria-selected="true" id="profile-tab">ప్రొఫైల్ (Profile)</button>
+  
+  <!-- ఈ ట్యాబ్ సెలెక్ట్ కాలేదు -->
+  <button role="tab" aria-selected="false" id="settings-tab">సెట్టింగ్స్ (Settings)</button>
+</div>
+
+tabIndex
+
+
