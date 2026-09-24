@@ -1,0 +1,121 @@
+Generic Constraint
+
+What is a generic constraint?
+	A generic constraint restricts the types that can be passed to a generic using the extends keyword.
+
+Why use constraints?
+	To ensure a generic type contains required properties or methods.
+
+function getLength<T extends { length: number }>(value: T) {
+  return value.length;
+}
+
+getLength("Hello");
+getLength([1, 2, 3]);
+
+
+Example 1: Object Constraint
+
+function printId<T extends { id: number }>(user: T) {
+  console.log(user.id);
+}
+
+printId({
+  id: 1,
+  name: "John"
+});
+
+
+Example 2: Key Constraint (keyof)
+
+function getProperty<T, K extends keyof T>(
+  obj: T,
+  key: K
+) {
+  return obj[key];
+}
+
+const user = {
+  id: 1,
+  name: "John"
+};
+
+getProperty(user, "name");
+
+
+Example 3: Reusable Interface Constraint
+
+interface HasName {
+  name: string;
+}
+
+function greet<T extends HasName>(obj: T) {
+  console.log(`Hello ${obj.name}`);
+}
+
+greet({
+  name: "Nageswara",
+  age: 30
+});
+
+
+Example 4: API Response
+
+interface BaseResponse {
+  success: boolean;
+}
+
+function handleResponse<T extends BaseResponse>(
+  response: T
+) {
+  console.log(response.success);
+}
+
+handleResponse({
+  success: true,
+  data: []
+});
+
+React Real-Time Example
+
+interface User {
+  id: number;
+  name: string;
+}
+
+function findById<T extends { id: number }>(
+  items: T[],
+  id: number
+) {
+  return items.find(item => item.id === id);
+}
+
+const users = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Sam" }
+];
+
+findById(users, 1);
+
+
+Multiple Constraints
+
+interface HasId {
+  id: number;
+}
+
+interface HasName {
+  name: string;
+}
+
+function printUser<T extends HasId & HasName>(
+  user: T
+) {
+  console.log(user.id);
+  console.log(user.name);
+}
+
+printUser({
+  id: 1,
+  name: "John"
+});
