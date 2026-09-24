@@ -77,6 +77,11 @@ role tabIndex htmlFor
 
 
 
+For hearing-impaired users   ----  I ensure that any audio information is also available visually through captions, transcripts, visible notifications, error messages, and alerts. I never rely on sound alone to communicate important information. This makes the application accessible to deaf and hard-of-hearing users.
+
+To support users with cognitive disabilities, I use simple language, clear instructions, meaningful error messages, consistent navigation, step-by-step workflows, progress indicators, and avoid requiring users to remember information. The goal is to reduce mental effort and make tasks easy to understand and complete. Without confusing means different pages of website having different colors or designs or font styles.
+
+For users with motor disabilities, I ensure the application is fully keyboard accessible, provide visible focus indicators, use large clickable targets, maintain spacing between controls, avoid drag-only or gesture-only interactions, allow sufficient time for actions, and prefer native HTML elements because they provide built-in accessibility support.
 
 
 area-label   - reads text
